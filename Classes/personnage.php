@@ -10,11 +10,19 @@ class personnage
     protected $life;
     const TYPE = "Dragon Rouge";
     const MIN_POSITION = 0;
+    const MAX_POSITION = 10;
+    protected static $numInstances = 0;
 
     public function __construct()
     {
-        $this->setNom("Alda");
+        $this->setNom("Ada");
         $this->setLife(100);
+        self::$numInstances++;
+    }
+
+    public static function getNumInstances()
+    {
+        return self::$numInstances;
     }
 
     public function setLife($life)
@@ -40,7 +48,7 @@ class personnage
     public function moveTop()
     {
         if($this->checkMoveY()) {
-            $this->y -= 1;
+            $this->setY($this->y - 1);
             $this->addAction();
         }
     }
@@ -48,21 +56,25 @@ class personnage
     public function moveLeft()
     {
         if ($this->checkMoveX()) {
-            $this->x -= 1;
+            $this->setX($this->x - 1);
             $this->addAction();
         }
     }
 
     public function moveRight()
     {
-        $this->x += 1;
-        $this->addAction();
+        if($this->checkMoveX()) {
+            $this->setX($this->x + 1);
+            $this->addAction();
+        }
     }
 
     public function moveBottom()
     {
-        $this->y += 1;
-        $this->addAction();
+        if($this->checkMoveY()) {
+            $this->setY($this->y + 1);
+            $this->addAction();
+        }
     }
 
     public function getPosition()
@@ -73,7 +85,8 @@ class personnage
         ];
     }
 
-    public function getActions(){
+    public function getActions()
+    {
         return $this->actionsList;
     }
 
@@ -84,13 +97,27 @@ class personnage
 
     private function checkMoveX()
     {
-        return ($this->x>self::MIN_POSITION);
+        return ($this->x>=self::MIN_POSITION and $this->x<=self::MAX_POSITION);
     }
 
     private function checkMoveY()
     {
-        return ($this->y>self::MIN_POSITION);
+        return ($this->y>=self::MIN_POSITION and $this->y<=self::MAX_POSITION);
     }
 
+    protected function setX($value)
+    {
+        if ($value >= self::MIN_POSITION and $value <= self::MAX_POSITION)
+        {
+            $this->x = $value;
+        }
+    }
 
+    protected function setY($value)
+    {
+        if($value >= self::MIN_POSITION and $value <= self::MAX_POSITION)
+        {
+            $this->y = $value;
+        }
+    }
 }
