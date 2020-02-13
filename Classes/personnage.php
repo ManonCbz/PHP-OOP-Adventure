@@ -7,12 +7,34 @@ class personnage
     protected $y = 0;
     protected $actionsList = [];
     protected $nom;
-
-    // propriété nom et on va définir un setter et un getter hérité par la classe dragon
+    protected $life;
+    const TYPE = "Dragon Rouge";
+    const MIN_POSITION = 0;
 
     public function __construct()
     {
+        $this->setNom("Alda");
+        $this->setLife(100);
+    }
 
+    public function setLife($life)
+    {
+        $this->life=$life;
+    }
+
+    public function getLife()
+    {
+        return $this->life;
+    }
+
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+    public function getNom()
+    {
+        return $this->nom;
     }
 
     public function moveTop()
@@ -55,19 +77,19 @@ class personnage
         return $this->actionsList;
     }
 
-    private function addAction()
+    protected function addAction()
     {
-        $this->actionsList[] = "Votre personnage se déplace en x : ".$this->x." / y : ".$this->y;
+        $this->actionsList[] = $this->nom.' se déplace en x : '.$this->x.' / y : '.$this->y;
     }
 
     private function checkMoveX()
     {
-        return ($this->x>0);
+        return ($this->x>self::MIN_POSITION);
     }
 
     private function checkMoveY()
     {
-        return ($this->y>0);
+        return ($this->y>self::MIN_POSITION);
     }
 
 
