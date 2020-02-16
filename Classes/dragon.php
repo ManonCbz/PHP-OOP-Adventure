@@ -19,5 +19,4 @@ class dragon extends personnage
     {
         $this->addAction();
     }
-
 }

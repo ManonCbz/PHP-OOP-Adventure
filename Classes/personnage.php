@@ -3,6 +3,8 @@
 
 class personnage
 {
+    use personnageUtils;
+
     protected $x = 0;
     protected $y = 0;
     protected $actionsList = [];
